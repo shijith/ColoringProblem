@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Graph Coloring Prob !</title>
+<script src="./js/node.js"></script>
+<style >
+@import url(./css/node.css);
+</style>
+</head>
+
+<body >
+<h1>Vertex coloring problem </h1>
+<canvas id = "node" ></canvas>
+<div class="sidebar">
+Welcome to Canvas<br>
+To Draw<br>
+1 click - create a node
+click 2 nodes - an edge
+Maximum of 10 colors provided
+</div>
+
+
+
+
+
+
+
+<script>
+function node(id, x, y, adj, color) {
+		this.id = id;
+		this.x = x;
+		this.y = y;
+		this.adj = adj;
+		this.color = color;
+}
+var i = 0;
+var nodes = [];
+{% for keys in cord.items %}
+	   nodes[i] = new node(i, {{ keys.1.0 }}, {{ keys.1.1 }}, [], 0);
+	   i++;
+{% endfor %}
+i = 0;
+{% for keys in adj.items %}
+		nodes[i].adj = {{keys.1}};
+		i++;
+{% endfor %}
+
+i = -1;
+
+{% for keys in color.items %}
+{% if keys.1 %}
+	i += 1;
+	{% for key in keys.1 %}
+		nodes[{{key}}].color = i;
+	{% endfor %}
+{% endif %}
+{% endfor %}
+
+init(nodes);
+</script>
+</body>
+</html>
